@@ -11,15 +11,12 @@ import android.nfc.NfcAdapter
 import android.nfc.NfcEvent
 import android.os.Bundle
 import android.provider.Settings
-import android.support.v4.content.FileProvider
 import android.support.v7.app.AppCompatActivity
-import android.util.Log
 import android.view.Gravity
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.EditText
 import android.widget.Toast
-import java.io.File
 
 
 class MainActivity : AppCompatActivity(), NfcAdapter.CreateNdefMessageCallback {
@@ -33,16 +30,16 @@ class MainActivity : AppCompatActivity(), NfcAdapter.CreateNdefMessageCallback {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        mContent = this.findViewById(R.id.content)
-        mContent.addTextChangedListener(PlainTextWatcher())
-        mNFCAdapter = NfcAdapter.getDefaultAdapter(this)
-
+        mNFCAdapter = NfcAdapter.getDefaultAdapter(this).apply {
+            setNdefPushMessageCallback(this@MainActivity, this@MainActivity)
+        }
+        mContent = findViewById<EditText>(R.id.content).apply {
+            addTextChangedListener(PlainTextWatcher())
+        }
         if (mNFCAdapter == null) {
             mContent.setText(R.string.nfc_unavailable)
             mContent.gravity = Gravity.CENTER
             mContent.isEnabled = false
-        } else {
-            mNFCAdapter?.setNdefPushMessageCallback(this, this)
         }
     }
 
@@ -123,9 +120,9 @@ class MainActivity : AppCompatActivity(), NfcAdapter.CreateNdefMessageCallback {
             R.id.menu_share -> {
                 if (mContent.text.isNotEmpty()) {
                     val intent = Intent().apply {
-                        this.type = "text/plain"
-                        this.action = Intent.ACTION_SEND
-                        this.putExtra(Intent.EXTRA_TEXT, mContent.text.toString())
+                        type = "text/plain"
+                        action = Intent.ACTION_SEND
+                        putExtra(Intent.EXTRA_TEXT, mContent.text.toString())
                     }
                     startActivity(Intent.createChooser(intent, getString(R.string.share_via)))
                 }
@@ -135,37 +132,21 @@ class MainActivity : AppCompatActivity(), NfcAdapter.CreateNdefMessageCallback {
                     (getSystemService(CLIPBOARD_SERVICE) as ClipboardManager).apply {
                         val label = "nfc-beam"
                         val payload = mContent.text.toString()
-                        this.primaryClip = ClipData.newPlainText(label, payload)
+                        primaryClip = ClipData.newPlainText(label, payload)
                     }
-                    Toast.makeText(this, getString(R.string.copies_to_clipboard), Toast.LENGTH_LONG).show()
+                    Toast.makeText(this, R.string.copies_to_clipboard, Toast.LENGTH_LONG).show()
                 }
             }
-            R.id.menu_beam_settings -> {
-                startActivity(Intent(Settings.ACTION_NFCSHARING_SETTINGS))
-            }
-            R.id.menu_share_self -> let {
-                val app = applicationContext.applicationInfo
-                val appName = getString(app.labelRes)
-                    .replace("[ /-]".toRegex(), "_")
-                val clonedFile = File(applicationContext.cacheDir, "$appName.apk")
-                if (clonedFile.exists()) {
-                    clonedFile.delete()
+            R.id.menu_settings -> {
+                if (!mNFCAdapter!!.isEnabled) {
+                    startActivity(Intent(Settings.ACTION_NFC_SETTINGS))
+                } else {
+                    startActivity(Intent(Settings.ACTION_NFCSHARING_SETTINGS))
                 }
-                File(app.sourceDir).copyTo(clonedFile)
-                val intent = Intent(Intent.ACTION_SEND).apply {
-                    val target = FileProvider.getUriForFile(
-                        applicationContext,
-                        "${app.packageName}.FileProvider",
-                        clonedFile
-                    )
-                    this.type = "*/*"
-                    this.putExtra(Intent.EXTRA_STREAM, target)
-                }
-                startActivity(Intent.createChooser(intent, getString(R.string.share_via)))
             }
             R.id.menu_open_homepage -> {
                 startActivity(Intent(Intent.ACTION_VIEW).apply {
-                    this.data = Uri.parse(getString(R.string.project_link))
+                    data = Uri.parse(getString(R.string.project_link))
                 })
             }
             else -> {

@@ -8,10 +8,8 @@
           android:title="@string/menu_share"/>
     <item android:id="@+id/menu_copy_to_clipboard"
           android:title="@string/menu_copy_to_clipboard"/>
-    <item android:id="@+id/menu_beam_settings"
-          android:title="@string/menu_beam_settings"/>
-    <item android:id="@+id/menu_share_self"
-          android:title="@string/menu_share_self"/>
+    <item android:id="@+id/menu_settings"
+          android:title="@string/menu_settings"/>
     <item android:id="@+id/menu_open_homepage"
           android:title="@string/menu_homepage"/>
 </menu>
