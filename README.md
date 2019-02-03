@@ -7,3 +7,4 @@ The project based [NFC Text Beam](https://play.google.com/store/apps/details?id=
 ## Thanks
 
 See https://play.google.com/store/apps/details?id=diewland.nfc.text&hl=en
+See https://github.com/diewland
