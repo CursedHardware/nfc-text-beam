@@ -115,7 +115,7 @@ class MainActivity : AppCompatActivity(), NfcAdapter.CreateNdefMessageCallback {
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         when (item?.itemId) {
             R.id.menu_clear -> {
-                mContent.setText("")
+                mContent.text = null
             }
             R.id.menu_share -> {
                 if (mContent.text.isNotEmpty()) {
