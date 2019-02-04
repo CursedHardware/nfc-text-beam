@@ -8,6 +8,9 @@
           android:icon="@drawable/ic_delete_white_24dp"
           android:title="@string/menu_clear"
           app:showAsAction="ifRoom"/>
+    <item android:id="@+id/menu_paste_from_clipboard"
+          android:icon="@drawable/ic_content_paste_white_24dp"
+          android:title="@string/menu_paste_from_clipboard"/>
     <item android:id="@+id/menu_share"
           android:title="@string/menu_share"/>
     <item android:id="@+id/menu_settings"

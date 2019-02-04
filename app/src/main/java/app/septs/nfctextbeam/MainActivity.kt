@@ -134,8 +134,16 @@ class MainActivity : AppCompatActivity(), NfcAdapter.CreateNdefMessageCallback {
                         val payload = mContent.text.toString()
                         primaryClip = ClipData.newPlainText(label, payload)
                     }
-                    Toast.makeText(this, R.string.copies_to_clipboard, Toast.LENGTH_LONG).show()
+                    Toast.makeText(this, R.string.toast_copies_to_clipboard, Toast.LENGTH_LONG).show()
                 }
+            }
+            R.id.menu_paste_from_clipboard -> {
+                (getSystemService(CLIPBOARD_SERVICE) as ClipboardManager).apply {
+                    primaryClip?.let {
+                        mContent.setText(it.getItemAt(0).text)
+                    }
+                }
+                Toast.makeText(this, R.string.toast_pasted_from_clipboard, Toast.LENGTH_LONG).show()
             }
             R.id.menu_settings -> {
                 val action = if (mNFCAdapter!!.isEnabled)

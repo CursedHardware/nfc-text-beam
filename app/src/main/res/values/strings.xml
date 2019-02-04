@@ -4,11 +4,13 @@
     <string name="app_name">NFC Text Beam</string>
 
     <string name="nfc_unavailable">NFC is not available on this device.</string>
-    <string name="copies_to_clipboard">Copies to clipboard</string>
     <string name="share_via">Share via</string>
+    <string name="toast_copies_to_clipboard">Copies to clipboard</string>
+    <string name="toast_pasted_from_clipboard">Pasted from Clipboard</string>
 
     <string name="menu_clear">Clear</string>
     <string name="menu_copy_to_clipboard">Copy to Clipboard</string>
+    <string name="menu_paste_from_clipboard">Paste from Clipboard</string>
     <string name="menu_share">Share</string>
     <string name="menu_settings">Settings</string>
     <string name="menu_homepage">Homepage</string>
