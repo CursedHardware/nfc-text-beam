@@ -138,13 +138,12 @@ class MainActivity : AppCompatActivity(), NfcAdapter.CreateNdefMessageCallback {
                 }
             }
             R.id.menu_settings -> {
-                if (!mNFCAdapter!!.isEnabled) {
-                    startActivity(Intent(Settings.ACTION_NFC_SETTINGS))
-                } else {
-                    startActivity(Intent(Settings.ACTION_NFCSHARING_SETTINGS))
-                }
+                val action = if (mNFCAdapter!!.isEnabled)
+                    Settings.ACTION_NFCSHARING_SETTINGS else
+                    Settings.ACTION_NFC_SETTINGS
+                startActivity(Intent(action))
             }
-            R.id.menu_open_homepage -> {
+            R.id.menu_homepage -> {
                 startActivity(Intent(Intent.ACTION_VIEW).apply {
                     data = Uri.parse(getString(R.string.project_link))
                 })
