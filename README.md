@@ -1,8 +1,12 @@
 # NFC Text Beam (Android)
 
+<a href="https://play.google.com/store/apps/details?id=app.septs.nfctextbeam">
+    <img src="https://play.google.com/intl/en_us/badges/images/generic/en-play-badge.png" height="48">
+</a> for Android
+
 Transfer text between mobile with NFC, The closest way to send text between phone.
 
-The project based [NFC Text Beam](https://play.google.com/store/apps/details?id=diewland.nfc.text&hl=en) source code rewrite, written Kotlin.
+The project based **NFC Text Beam** source code rewrite, written Kotlin.
 
 ## Screenshots
 
