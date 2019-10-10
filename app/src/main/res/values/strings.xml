@@ -3,6 +3,8 @@
         tools:ignore="ExtraTranslation">
     <string name="app_name">NFC Text Beam</string>
 
+    <string name="input_hint">Type here...</string>
+
     <string name="nfc_unavailable">NFC is not available on this device.</string>
     <string name="share_via">Share via</string>
     <string name="toast_copies_to_clipboard">Copies to clipboard</string>

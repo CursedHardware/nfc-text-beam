@@ -14,5 +14,6 @@
             android:gravity="top"
             android:background="@null"
             android:padding="8dp"
+	     android:hint="@string/input_hint"
             tools:ignore="Autofill,LabelFor"/>
 </android.support.constraint.ConstraintLayout>
